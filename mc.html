@@ -2,97 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Create Your Server</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 0; }
-    .container { width: 50%; margin: auto; padding: 20px; background: white; margin-top: 50px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); }
-    h2 { text-align: center; }
-    label { display: block; margin-top: 15px; }
-    input, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
-    .btn { margin-top: 20px; width: 100%; padding: 15px; border: none; background: #2a5298; color: white; border-radius: 8px; font-size: 16px; cursor: pointer; }
-    .btn:hover { background: #1e3c72; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Hosting - Create Server</title>
 </head>
-<body>
-  <div class="container">
-    <h2>Create Your Minecraft Server</h2>
-    <form action="panel.html" method="get">
-      <label>Server Name</label>
-      <input type="text" name="servername" required>
+<body style="font-family: Arial; background: #111; color: #eee; text-align:center; padding: 20px;">
+  <h1>🚀 Create Your Minecraft Server</h1>
+  
+  <form id="serverForm">
+    <label>User requesting server *</label><br>
+    <input type="text" id="username" required><br><br>
+    
+    <label>Server name *</label><br>
+    <input type="text" id="servername" required><br><br>
+    
+    <label>Software (paper/spigot/fabric/vanilla) *</label><br>
+    <input type="text" id="software" required><br><br>
+    
+    <label>Minecraft version (1.8.9 → 1.21.8) *</label><br>
+    <input type="text" id="version" required><br><br>
+    
+    <button type="submit">🚀 Create Server</button>
+  </form>
 
-      <label>Software</label>
-      <select name="software">
-        <option value="paper">Paper</option>
-        <option value="spigot">Spigot</option>
-        <option value="vanilla">Vanilla</option>
-        <option value="bungee">BungeeCord</option>
-      </select>
+  <p id="result"></p>
 
-      <label>Version</label>
-      <select name="version">
-        <!-- Versions 1.8.9 to 1.21.8 -->
-        <option value="1.21.8">1.21.8</option>
-        <option value="1.21.7">1.21.7</option>
-        <option value="1.21.6">1.21.6</option>
-        <option value="1.21.5">1.21.5</option>
-        <option value="1.21.4">1.21.4</option>
-        <option value="1.21.3">1.21.3</option>
-        <option value="1.21.2">1.21.2</option>
-        <option value="1.21.1">1.21.1</option>
-        <option value="1.21">1.21</option>
-        <option value="1.20.6">1.20.6</option>
-        <option value="1.20.5">1.20.5</option>
-        <option value="1.20.4">1.20.4</option>
-        <option value="1.20.3">1.20.3</option>
-        <option value="1.20.2">1.20.2</option>
-        <option value="1.20.1">1.20.1</option>
-        <option value="1.20">1.20</option>
-        <option value="1.19.4">1.19.4</option>
-        <option value="1.19.3">1.19.3</option>
-        <option value="1.19.2">1.19.2</option>
-        <option value="1.19.1">1.19.1</option>
-        <option value="1.19">1.19</option>
-        <option value="1.18.2">1.18.2</option>
-        <option value="1.18.1">1.18.1</option>
-        <option value="1.18">1.18</option>
-        <option value="1.17.1">1.17.1</option>
-        <option value="1.17">1.17</option>
-        <option value="1.16.5">1.16.5</option>
-        <option value="1.16.4">1.16.4</option>
-        <option value="1.16.3">1.16.3</option>
-        <option value="1.16.2">1.16.2</option>
-        <option value="1.16.1">1.16.1</option>
-        <option value="1.16">1.16</option>
-        <option value="1.15.2">1.15.2</option>
-        <option value="1.15.1">1.15.1</option>
-        <option value="1.15">1.15</option>
-        <option value="1.14.4">1.14.4</option>
-        <option value="1.14.3">1.14.3</option>
-        <option value="1.14.2">1.14.2</option>
-        <option value="1.14.1">1.14.1</option>
-        <option value="1.14">1.14</option>
-        <option value="1.13.2">1.13.2</option>
-        <option value="1.13.1">1.13.1</option>
-        <option value="1.13">1.13</option>
-        <option value="1.12.2">1.12.2</option>
-        <option value="1.12.1">1.12.1</option>
-        <option value="1.12">1.12</option>
-        <option value="1.11.2">1.11.2</option>
-        <option value="1.11.1">1.11.1</option>
-        <option value="1.11">1.11</option>
-        <option value="1.10.2">1.10.2</option>
-        <option value="1.10.1">1.10.1</option>
-        <option value="1.10">1.10</option>
-        <option value="1.9.4">1.9.4</option>
-        <option value="1.9.3">1.9.3</option>
-        <option value="1.9.2">1.9.2</option>
-        <option value="1.9.1">1.9.1</option>
-        <option value="1.9">1.9</option>
-        <option value="1.8.9">1.8.9</option>
-      </select>
+  <script>
+    document.getElementById("serverForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
 
-      <button type="submit" class="btn">Next</button>
-    </form>
-  </div>
+      let username = document.getElementById("username").value;
+      let servername = document.getElementById("servername").value;
+      let software = document.getElementById("software").value;
+      let version = document.getElementById("version").value;
+
+      // Call GitHub API to trigger workflow
+      const response = await fetch(
+        "https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/actions/workflows/create_colab.yml/dispatches",
+        {
+          method: "POST",
+          headers: {
+            "Accept": "application/vnd.github+json",
+            "Authorization": "Bearer YOUR_GITHUB_PAT",  // use a GitHub token
+          },
+          body: JSON.stringify({
+            ref: "main",
+            inputs: {
+              username: username,
+              server_name: servername,
+              software: software,
+              version: version
+            }
+          })
+        }
+      );
+
+      if (response.ok) {
+        document.getElementById("result").innerText = "✅ Workflow started! Check GitHub Actions for progress.";
+      } else {
+        document.getElementById("result").innerText = "❌ Failed to trigger workflow. Check console.";
+        console.error(await response.text());
+      }
+    });
+  </script>
 </body>
 </html>
